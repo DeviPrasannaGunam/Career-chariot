@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form label {
+    display: inline-block;
+    width: 100px;
+}
+
+form textarea {
+    width: 300px;
+}
+
+.messages {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.message .name {
+    font-weight: bold;
+}
+
+.message .time {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.reply {
+    margin-left: 30px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
+}
