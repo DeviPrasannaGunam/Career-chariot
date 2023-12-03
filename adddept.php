@@ -111,8 +111,9 @@ $url = "insert_data1.php?id=" . $buttonId;
       
     </form>
   </div>
- 
-<button onclick="window.location.href='home-admin.php'">Back</button>
-
+ <?php
+ $prev=$_GET['prev'];
+echo '<button onclick="window.location.href= \''.$prev .'\'">Back</button>';
+?>
 </body>
 </html>

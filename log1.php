@@ -18,44 +18,12 @@ if (isset($_POST['logout'])) {
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="style2.css" rel="stylesheet">
     <style>
-        .navbar-dark .navbar-toggler {
-  padding: 1rem; /* Increase the padding to increase the height */
-}
+        
 
-.navbar-dark .navbar-collapse {
-    
-  background-color: #343a40; /* Set the desired background color */
-  transition: height 0.3s; /* Add a transition effect */
-}
+
 
 @media (max-width: 300.98px) {
-  .navbar-dark .navbar-collapse {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    overflow-y: auto;
-    padding-top: 56px; /* Adjust the value to match the height of the collapsed navbar */
-    background-color: #343a40; /* Set the desired background color */
-    transition: transform 0.3s;
-    transform: translateX(-100%);
-    left: 0;
-    right: 0;
-  }
-  .navbar-dark .navbar-toggler {
-    z-index: 99999;
-  }
-  .navbar-dark .navbar-collapse.show + .navbar-toggler {
-    background-color: transparent;
-    border-color: transparent;
-  }
-  .navbar-dark .navbar-collapse.collapsing,
-  .navbar-dark .navbar-collapse.show {
-    transform: translateX(0%);
-    background-color: #343a40;
-  }
+  
 
   /* Additional styles to move the body content down */
   body {
@@ -68,10 +36,6 @@ if (isset($_POST['logout'])) {
   }
 }
 
-        body.dark-mode {
-            background-color: #333;
-            color: #fff;
-        }
         .dropdown-content {
             display: none;
   position: absolute;
@@ -107,15 +71,7 @@ if (isset($_POST['logout'])) {
             color: #000;
         }
         
-        .search-input.dark-mode {
-            background-color: #fff;
-            background-image: url("data:image/jpeg;base64,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");
-            background-repeat: no-repeat;
-            background-position: 10px center;
-            background-size: 18px;
-            padding-left: 40px;
-            color: #fff;
-        }
+       
         
         .search-input::placeholder {
             color: #000;
@@ -242,29 +198,7 @@ input[type="password"] {
 
 .button-container {
   overflow: hidden;
-} body.dark-mode {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode section {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode #footer .footer-newsletter {
-    background-color: #000;
-    color: #fff;
-}
-body.dark-mode #footer .footer-top{
-  background-color: #000;
-    color: #fff;
-}
-body.dark-mode #footer {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode footer{
-      background-color:black;
-    }
+} 
 
     </style>
 </head>
@@ -288,13 +222,7 @@ body.dark-mode #footer {
                     <a class="nav-link" href="forum.php">Discussion forum</a>
                 </li>
             </ul>
-            <div class="navbar-center">
-                <div class="form-switch ml-2">
-                    <input type="checkbox" class="form-check-input" id="darkModeSwitch">
-                    <label class="form-check-label" for="darkModeSwitch"></label>
-                </div>
-                <span class="dark-mode-text">Light Mode</span>
-            </div>
+            
            <!-- Display the user icon -->
 <div class="user-icon">
     <span onclick="toggleDropdown()"> <?php echo strtoupper(substr($_SESSION['username'], 0, 1));?> </span>

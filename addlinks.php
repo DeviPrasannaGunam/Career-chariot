@@ -101,8 +101,10 @@
       <input type="text" id="certify" name="certify" required>
       <button type="submit">Submit</button>
     </form></div>
-    <button onclick="window.location.href='home-admin.php'">Back</button>
-
+    <?php
+ $prev=$_GET['prev'];
+echo '<button onclick="window.location.href= \''.$prev .'\'">Back</button>';
+?>
 
 </body>
 </html>

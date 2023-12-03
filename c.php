@@ -115,13 +115,13 @@
   <!-- Card Section -->
   <div class="card">
     <button class="plus-button" onclick="openNewPage1()">&#43; Add values</button>
-  </div>  <a href="home-admin.php" class="button">Go to Home Page</a>
-
+  </div>  
   <div class="card-container">
     <!-- Card 1 -->
     <?php
             // Assuming you have a database connection, retrieve data from the tables
             // Adjust the database connection details as per your setup
+            $currentUrl = $_SERVER['REQUEST_URI'];
             $servername = "localhost:3308";
             $username = "root";
             $password = "";
@@ -141,6 +141,16 @@
               $buttonId = 0; 
           }
 
+          if (isset($_GET['success'])) {
+            if ($_GET['success'] == 1) {
+                // Success message
+                echo '<p style="color: green;">' . $_GET['message'] . '</p>';
+            } elseif ($_GET['success'] == 0) {
+                // Error message
+                echo '<p style="color: red;">' . $_GET['message'] . '</p>';
+            }
+        }
+
             // Fetch data from the 'depts' table based on matching choice_id
             $deptsSql = "SELECT * FROM depts WHERE choice_id = '$buttonId'";
             $deptsResult = $conn->query($deptsSql);
@@ -153,18 +163,24 @@
                     $image = $deptRow['image']; // Assuming you have a 'image' column in the 'depts' table
                     
                     $url = "c1.php?id=" . $id;
+                    
                     echo '<div class="card">';
+                    
                     echo '<img src="' . $image . '" alt="Card Image" height:400px>';
+                    
                     echo '<h2 style="color:black;">' . $heading . '</h2>';
                     echo '<div class="card-button-container">';
-                   echo ' <button class="card-button" id="' . $id . '" onclick="deleteData(this.id)">Delete</button>';
-                    echo '<button class="card-button"  onclick="window.location.href=\''. $url .'\'">Go to subjects</button>';
+                    echo '<form method="POST" action="delete_data1.php?prev=' . urlencode($currentUrl) . '">';
+                   echo ' <button class="card-button" name="deletebutton" value="' . $id . '" >Delete</button>';
+                   echo '</form>';
+                    echo '<button class="card-button" onclick="window.location.href=\'' . $url . '\'">Go to subjects</button>';
                  echo '</div>';
                     
                     echo '</div>';
+                    
                 }
             } else {
-                echo "No data found for choice ID: " ;
+                echo "No data" ;
             }
 
             // Close the database connection
@@ -175,19 +191,9 @@
 
 </body>
 <script>
-  function deleteData(buttonId) {
-    // Send an AJAX request to delete the data in the database
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        // Display a success message or perform any other actions
-        alert("Data with ID " + buttonId + " has been deleted.");
-      }
-    };
-    xhttp.open("POST", "delete_data1.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id=" + buttonId);
-  }
+   document.getElementById("sub").addEventListener("click", function() {
+        window.location.href = "' . $url . '";
+    });
   function openNewPage() {
     // Specify the URL of the new page you want to open
    
@@ -197,12 +203,13 @@
   }
     function openNewPage1() {
     // Specify the URL of the new page you want to open
-   <?php  if (isset($_GET['id'])) {
+    <?php  if (isset($_GET['id'])) {
               $buttonId = $_GET['id'];
           } else {
               $buttonId = 0; 
           }
-          $url = "adddept.php?id=" . $buttonId;
+          $currentUrl = $_SERVER['REQUEST_URI'];
+          $url = "adddept.php?id=" . $buttonId . "&prev=".$currentUrl;
     // Open the new page in a new window or tab
    echo 'window.location.href = \''. $url .'\'';?>
   }

@@ -154,7 +154,7 @@ $conn->close();
       echo "<td>$id</td>";
       echo "<td>$name</td>";
       echo "<td>$email</td>";
-      echo "<td><a href='edit_user.php?id=$id'>Edit</a> | <a href='delete_user.php?id=$id'>Delete</a></td>";
+      echo "<td><a href='edit_username.php?id=$id'>Edit</a> | <a href='delete_username.php?id=$id'>Delete</a></td>";
       echo "</tr>";
     }
 

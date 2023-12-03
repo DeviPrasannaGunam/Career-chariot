@@ -109,6 +109,9 @@ if (isset($_GET['success'])) {
       <button type="submit">Submit</button>
     </form></div>
     
-
+    <?php
+ $prev=$_GET['prev'];
+echo '<button onclick="window.location.href= \''.$prev .'\'">Back</button>';
+?>
 </body>
 </html>

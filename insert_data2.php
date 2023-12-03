@@ -26,7 +26,7 @@ if (isset($_GET['id'])) {
   $buttonId = 0; 
 }
 // Insert the form data into the 'depts' table
-$sql = "INSERT INTO subject (heading,certify,choice_id) VALUES ('$heading','$buttonId')";
+$sql = "INSERT INTO subject (heading,certify,choice_id) VALUES ('$heading','$certify','$buttonId')";
 
 if ($conn->query($sql) === TRUE) {
     // Insertion successful

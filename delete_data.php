@@ -1,6 +1,6 @@
 <?php
 // Get the ID from the AJAX request
-$id = $_POST['id'];
+$id = $_POST['deldep'];
 
 // Perform the deletion in the database using PHP and SQL
 
@@ -25,11 +25,22 @@ $sql = "DELETE FROM education WHERE id = $id";
 
 if ($conn->query($sql) === TRUE) {
   // Deletion successful
-  echo "Data deleted successfully";
+  $successMessage= "Data deleted successfully";
 } else {
   // Deletion failed
-  echo "Error deleting data: " . $conn->error;
+  $errorMessage = "Error inserting data: " . $conn->error;
 }
 
+
+$redirectUrl = urldecode($_GET['prev']);
+
 $conn->close();
+if (isset($successMessage)) {
+  $redirectUrl .= strpos($redirectUrl, '?') !== false ? '&' : '?'; // Check if there are existing query parameters
+  $redirectUrl .= 'success=1&message=' . urlencode($successMessage); // Add the success query parameter and message
+} elseif (isset($errorMessage)) {
+  $redirectUrl .= strpos($redirectUrl, '?') !== false ? '&' : '?'; // Check if there are existing query parameters
+  $redirectUrl .= 'success=0&message=' . urlencode($errorMessage); // Add the error query parameter and message
+}
+header("Location: $redirectUrl")
 ?>

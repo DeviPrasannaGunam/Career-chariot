@@ -41,7 +41,7 @@ $conn->close();
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Website - Admins</title>
+  <title> Website - Admins</title>
   <style>
     /* Add your desired CSS styles here */
   </style>

@@ -1,6 +1,6 @@
 <?php
 // Get the ID from the AJAX request
-$id = $_POST['id'];
+
 
 // Perform the deletion in the database using PHP and SQL
 
@@ -19,17 +19,28 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
+$id = $_POST['deltop'];
 // Delete the data with the specified ID from the 'datatable' table
 $sql = "DELETE FROM topics WHERE id = $id";
 
 if ($conn->query($sql) === TRUE) {
   // Deletion successful
-  echo "Data deleted successfully";
+  $successMessage= "Data deleted successfully";
 } else {
   // Deletion failed
-  echo "Error deleting data: " . $conn->error;
+  $errorMessage = "Error inserting data: " . $conn->error;
 }
 
+
+$redirectUrl = urldecode($_GET['prev']);
+
 $conn->close();
+if (isset($successMessage)) {
+  $redirectUrl .= strpos($redirectUrl, '?') !== false ? '&' : '?'; // Check if there are existing query parameters
+  $redirectUrl .= 'success=1&message=' . urlencode($successMessage); // Add the success query parameter and message
+} elseif (isset($errorMessage)) {
+  $redirectUrl .= strpos($redirectUrl, '?') !== false ? '&' : '?'; // Check if there are existing query parameters
+  $redirectUrl .= 'success=0&message=' . urlencode($errorMessage); // Add the error query parameter and message
+}
+header("Location: $redirectUrl")
 ?>

@@ -123,14 +123,7 @@
     <a href="home-admin.php">Career Chariot</a>
     <a href="home.php" style="float: right;">Logout</a>
   </div>
-  <?php
-// Your form page
 
-// Check if the success query parameter is present
-if (isset($_GET['success']) && $_GET['success'] == 1) {
-    echo '<p style="color: green;">Form submitted successfully!</p>';
-}
-?>
   <!-- Card Section -->
   <div class="card">
     <button class="plus-button" onclick="openNewPage1()">&#43; Add values</button>
@@ -141,6 +134,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
             // Assuming you have a database connection, retrieve data from the tables
             // Adjust the database connection details as per your setup
             $servername = "localhost:3308";
+            $currentUrl = $_SERVER['REQUEST_URI'];
             $username = "root";
             $password = "";
             $dbname = "careerc";
@@ -158,7 +152,15 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
           } else {
               $buttonId = 0; 
           }
-
+          if (isset($_GET['success'])) {
+            if ($_GET['success'] == 1) {
+                // Success message
+                echo '<p style="color: green;">' . $_GET['message'] . '</p>';
+            } elseif ($_GET['success'] == 0) {
+                // Error message
+                echo '<p style="color: red;">' . $_GET['message'] . '</p>';
+            }
+        }
             // Fetch data from the 'depts' table based on matching choice_id
             $deptsSql = "SELECT * FROM topics WHERE choice_id = '$buttonId'";
             $deptsResult = $conn->query($deptsSql);
@@ -178,8 +180,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
                     echo '<h2 style="color:black;">' . $heading . '</h2>';
                     echo '<a href="'  . $link . '">' . $link . '</a>';
                     echo '<div class="card-button-container">';
-                   echo ' <button class="card-button" id="' . $id . '" onclick="deleteData(this.id)">Delete</button>';
-                   
+                    echo '<form method="POST" action="delete_data3.php?prev=' . urlencode($currentUrl) . '">';
+                   echo ' <button class="card-button" name="deltop" value="' . $id . '">Delete</button>';
+                   echo '</form>';
                  echo '</div>';
                     
                     echo '</div>';
@@ -198,19 +201,7 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
 
 </body>
 <script>
-  function deleteData(buttonId) {
-    // Send an AJAX request to delete the data in the database
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        // Display a success message or perform any other actions
-        alert("Data with ID " + buttonId + " has been deleted.");
-      }
-    };
-    xhttp.open("POST", "delete_data3.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("id=" + buttonId);
-  }
+ 
 
   
     // Specify the URL of the new page you want to open
@@ -221,9 +212,11 @@ if (isset($_GET['success']) && $_GET['success'] == 1) {
           } else {
               $buttonId = 0; 
           }
-          $url = "addtopics.php?id=" . $buttonId;
+          $currentUrl = $_SERVER['REQUEST_URI'];
+          $url = "addtopics.php?id=" . $buttonId . "&prev=".$currentUrl;
     // Open the new page in a new window or tab
    echo 'window.location.href = \''. $url .'\'';?>
+          
   }
   
 </script>

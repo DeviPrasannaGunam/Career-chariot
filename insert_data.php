@@ -35,7 +35,7 @@ if ($conn->query($sql) === TRUE) {
   // Insertion failed
   $errorMessage = "Error inserting data: " . $conn->error;
   // Redirect back to the form page with the error message
-  header("Location: form.php?error=" . urlencode($errorMessage));
+  header("Location: addchoices.php?error=" . urlencode($errorMessage));
   exit;
 }
 

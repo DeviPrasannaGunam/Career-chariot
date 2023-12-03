@@ -119,6 +119,7 @@
     <?php
             // Assuming you have a database connection, retrieve data from the tables
             // Adjust the database connection details as per your setup
+            $currentUrl = $_SERVER['REQUEST_URI'];
             $servername = "localhost:3308";
             $username = "root";
             $password = "";
@@ -133,7 +134,15 @@
             }
 
            
-
+            if (isset($_GET['success'])) {
+              if ($_GET['success'] == 1) {
+                  // Success message
+                  echo '<p style="color: green;">' . $_GET['message'] . '</p>';
+              } elseif ($_GET['success'] == 0) {
+                  // Error message
+                  echo '<p style="color: red;">' . $_GET['message'] . '</p>';
+              }
+          }
             // Fetch data from the 'depts' table based on matching choice_id
             $deptsSql = "SELECT * FROM education";
             $deptsResult = $conn->query($deptsSql);
@@ -150,7 +159,9 @@
                     echo '<img src="' . $image . '" alt="Card Image" height:400px>';
                     echo '<h2 style="color:black;">' . $heading . '</h2>';
                     echo '<div class="card-button-container">';
-                   echo ' <button class="card-button" id="' . $id . '" onclick="deleteData(this.id)">Delete</button>';
+                    echo '<form method="POST" action="delete_data.php?prev=' . urlencode($currentUrl) . '">';
+                   echo ' <button class="card-button" name="deldep" value="' . $id . '">Delete</button>';
+                   echo '</form>';
                     echo '<button class="card-button"  onclick="window.location.href=\''. $url .'\'"">Edit departments</button>';
                  echo '</div>';
                     
@@ -167,19 +178,7 @@
     
 </body>
 <script>
-    function deleteData(buttonId) {
-      // Send an AJAX request to delete the data in the database
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState === 4 && this.status === 200) {
-          // Display a success message or perform any other actions
-          alert("Data with ID " + buttonId + " has been deleted.");
-        }
-      };
-      xhttp.open("POST", "delete_data.php", true);
-      xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhttp.send("id=" + buttonId);
-    }
+    
     
   function openNewPage() {
     // Specify the URL of the new page you want to open
@@ -191,9 +190,12 @@
   function openNewPage1() {
     // Specify the URL of the new page you want to open
    
-
+    $currentUrl = $_SERVER['REQUEST_URI'];
+          $url = "addchoices.php?prev=" .$currentUrl;
     // Open the new page in a new window or tab
-    window.location.href = "addchoices.php" ;
+   echo 'window.location.href = \''. $url .'\'';?>
+    // Open the new page in a new window or tab
+   
   }
 
   </script>

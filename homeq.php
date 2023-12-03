@@ -26,6 +26,7 @@
                         <input type="password" class="form-control" id="loginPassword" name="loginPassword">
                     </div>
                     <button type="submit"  class="btn btn-primary" name="loginSubmit">Login</button>
+                    <a href="#" id="forgotPasswordLink" class="ml-auto">Forgot Password?</a>
                 </form>
                 <div id="loginError" class="required"></div>
             </div>

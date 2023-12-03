@@ -3,7 +3,7 @@
 $servername = "localhost:3308";
 $username = "root";
 $password = "";
-$dbname = "career";
+$dbname = "careerc";
 
 // Check if the admin ID is provided in the URL parameter
 if (isset($_GET['id'])) {

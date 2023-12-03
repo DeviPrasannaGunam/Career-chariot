@@ -174,7 +174,15 @@ function getThemeClass($mode)
             background-color: #fff;
             transition: transform 0.3s;
         }
-        
+        #forgotPasswordLink {
+        color: #007bff; /* Blue color, you can adjust the color as needed */
+        cursor: pointer;
+        float:right;
+    }
+
+    #forgotPasswordLink:hover {
+        text-decoration: underline;
+    }
         .dark-mode-text {
             margin-left: 5px;
             margin-top: 5px;
@@ -241,29 +249,7 @@ input[type="password"] {
 
 .button-container {
   overflow: hidden;
-} body.dark-mode {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode section {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode #footer .footer-newsletter {
-    background-color: #000;
-    color: #fff;
-}
-body.dark-mode #footer .footer-top{
-  background-color: #000;
-    color: #fff;
-}
-body.dark-mode #footer {
-        background-color: #000;
-        color: #fff;
-    }
-    body.dark-mode footer{
-      background-color:black;
-    }
+} 
 
     </style>
 </head>
@@ -293,7 +279,7 @@ body.dark-mode #footer {
                     <input type="checkbox" class="form-check-input" id="darkModeSwitch">
                     <label class="form-check-label" for="darkModeSwitch"></label>
                 </div>
-                <span class="dark-mode-text">Light Mode</span>
+                
             </div>
             <!-- Display the user icon -->
             <button type="button" class="btn btn-outline-light login-signup-btn" data-toggle="modal"  data-target="#loginModal">Login / Sign Up</button>
@@ -305,24 +291,7 @@ body.dark-mode #footer {
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script>
         // Dark mode toggle functionality
-        const darkModeSwitch = document.getElementById('darkModeSwitch');
-        const body = document.body;
-        const darkModeText = document.querySelector('.dark-mode-text');
-
-        darkModeSwitch.addEventListener('change', function() {
-            body.classList.toggle('dark-mode');
-            if (darkModeSwitch.checked) {
-                darkModeText.textContent = "Dark Mode";
-            } else {
-                darkModeText.textContent = "Light Mode";
-            }
-        });
-
-        function toggleMode() {
-            var mode = '<?php echo $mode; ?>';
-            var newMode = (mode === 'dark') ? 'light' : 'dark';
-            window.location.href = '?mode=' + newMode;
-        }
+        
         function toggleDropdown() {
             var dropdown = document.getElementById("dropdown");
             dropdown.classList.toggle("show");
