@@ -1,3 +1,5 @@
+<?php
+include('homeq.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,8 +119,10 @@
     </style>
 </head>
 <body>
-<?php include('log1.php'); ?>
+
 <?php
+
+
     // Assuming you have a database connection, retrieve data from the tables
     // Adjust the database connection details as per your setup
     $servername = "localhost:3308";
@@ -174,7 +178,7 @@ echo '<div class="content-wrapper">
                     
                     $image = $deptRow['image']; // Assuming you have a 'image' column in the 'depts' table
                     $id=$deptRow['id'];
-                    $url = "m.php?id=" . $id;
+                    $url = "sub.php?id=" . $id;
                     echo '<div class="card">';
                     echo '<img src="' . $image . '" alt="Card Image" height:400px>';
                     echo '<h2 style="color:black;">' . $heading . '</h2>';

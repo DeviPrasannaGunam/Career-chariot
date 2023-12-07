@@ -1,3 +1,5 @@
+<?php
+include('homeq.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +74,7 @@
     </style>
 </head>
 <body>
-<?php include('log1.php'); ?>
+
 <div class="body1">
 <div class="content">
   <div class="card-container">

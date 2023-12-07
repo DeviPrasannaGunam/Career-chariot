@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 ?>
@@ -14,12 +13,13 @@ $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $author =$_SESSION['username'];
+  // Retrieve the user_id from the session
+  $user_id = $_SESSION['user_id'];
   $content = $_POST["content"];
 
   // Prepare and execute the SQL statement to insert a new post
-  $stmt = $conn->prepare("INSERT INTO posts (author, content) VALUES (:author, :content)");
-  $stmt->bindParam(':author', $author);
+  $stmt = $conn->prepare("INSERT INTO posts (user_id, content) VALUES (:user_id, :content)");
+  $stmt->bindParam(':user_id', $user_id);
   $stmt->bindParam(':content', $content);
   $stmt->execute();
 
@@ -29,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Retrieve existing posts from the database
-$stmt = $conn->query("SELECT * FROM posts ORDER BY id DESC");
+$stmt = $conn->query("SELECT * FROM posts ORDER BY post_id DESC");
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-

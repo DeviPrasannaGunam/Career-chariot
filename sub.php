@@ -1,3 +1,6 @@
+<?php include('homeq.php');
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,7 +74,6 @@
     </style>
 </head>
 <body>
-<?php include('log1.php'); ?>
 
 <main class="container">
     <?php

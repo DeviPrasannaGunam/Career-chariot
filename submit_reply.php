@@ -14,11 +14,11 @@ $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $post_id = $_POST["post_id"];
-    $author = $_SESSION['username'];
+    $author = $_SESSION['user_id'];
     $content = $_POST["content"];
   
     // Prepare and execute the SQL statement to insert a new reply
-    $stmt = $conn->prepare("INSERT INTO replies (post_id, author, content) VALUES (:post_id, :author, :content)");
+    $stmt = $conn->prepare("INSERT INTO replies (post_id, user_id, content) VALUES (:post_id, :author, :content)");
     $stmt->bindParam(':post_id', $post_id);
     $stmt->bindParam(':author', $author);
     $stmt->bindParam(':content', $content);

@@ -19,6 +19,7 @@ $username = $_POST['signupUsername'];
 $phoneNumber = $_POST['signupPhoneNumber'];
 $email = $_POST['signupEmail'];
 $password = $_POST['signupPassword'];
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Validate if the username and email are unique
 $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
@@ -34,7 +35,7 @@ if ($result->num_rows > 0) {
 
 // Prepare a SQL statement to insert the new user into the database
 $stmt = $conn->prepare("INSERT INTO users (name, username, phone, email, password) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("sssss", $name, $username, $phoneNumber, $email, $password);
+$stmt->bind_param("sssss", $name, $username, $phoneNumber, $email, $hashedPassword);
 $stmt->execute();
 
 // Check if the insertion was successful

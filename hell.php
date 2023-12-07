@@ -1,4 +1,5 @@
-
+<?php include('homeq.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,7 +110,7 @@ body.dark-mode #footer .footer-top{
 </head>
 
 <body>
-    <?php include('homeq.php'); ?>
+    
     <main id="main">
         <!-- ======= About Us Section ======= -->
         <section id="about" class="about">

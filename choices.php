@@ -1,4 +1,5 @@
-
+<?php
+include('homeq.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +55,7 @@
     
 </head>
 <body>
-<?php include('log1.php'); ?>
+
 <div class="body1">
     <?php
         // Assuming you have a database connection, retrieve data from the table
@@ -85,7 +86,7 @@
                 $heading = $row['heading'];
                 
                 $buttonId = $row['id'];
-                $url = "a.php?id=" . $buttonId;
+                $url = "edu.php?id=" . $buttonId;
                 echo '<div class="card">';
                 echo '<img src="' . $image . '" alt="' . $heading . '">';
                 echo '<div>';

@@ -1,79 +1,19 @@
-
-<?php
-session_start();
-
-// Check if the user has set a mode preference
-if (isset($_SESSION['mode'])) {
-    $mode = $_SESSION['mode'];
-} else {
-    // Default mode is light mode
-    $mode = 'light';
-}
-
-// Check if the mode preference has been updated
-if (isset($_GET['mode']) && in_array($_GET['mode'], ['light', 'dark'])) {
-    $mode = $_GET['mode'];
-    $_SESSION['mode'] = $mode;
-}
-
-// Function to generate the appropriate CSS class based on the selected mode
-function getThemeClass($mode)
-{
-    return ($mode === 'dark') ? 'dark-mode' : '';
-}
-?>
+<?php session_start();?>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Career Chariot</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <head>
+            <title>Career Chariot</title>
+            <!-- Include your CSS and other head elements here -->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     <link href="style2.css" rel="stylesheet">
-    <style>
-        /* Your custom styles here */
-        .navbar-dark .navbar-toggler {
-  padding: 1rem; /* Increase the padding to increase the height */
-}
-
-.navbar-dark .navbar-collapse {
     
-  background-color: #343a40; /* Set the desired background color */
-  transition: height 0.3s; /* Add a transition effect */
-}
 
-@media (max-width: 300.98px) {
-  .navbar-dark .navbar-collapse {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    overflow-y: auto;
-    padding-top: 56px; /* Adjust the value to match the height of the collapsed navbar */
-    background-color: #343a40; /* Set the desired background color */
-    transition: transform 0.3s;
-    transform: translateX(-100%);
-    left: 0;
-    right: 0;
-  }
-  .navbar-dark .navbar-toggler {
-    z-index: 99999;
-  }
-  .navbar-dark .navbar-collapse.show + .navbar-toggler {
-    background-color: transparent;
-    border-color: transparent;
-  }
-  .navbar-dark .navbar-collapse.collapsing,
-  .navbar-dark .navbar-collapse.show {
-    transform: translateX(0%);
-    background-color: #343a40;
-  }
-
-  /* Additional styles to move the body content down */
-  body {
+    <style>
+        @media (max-width: 300.98px) {
+            body {
     padding-top: 56px; /* Adjust the value to match the height of the collapsed navbar */
     transition: padding-top 0.3s;
   }
@@ -82,12 +22,7 @@ function getThemeClass($mode)
     padding-top: 100px; /* Adjust the value to move the content further down */
   }
 }
-
-        body.dark-mode {
-            background-color: #333;
-            color: #fff;
-        }
-        .dropdown-content {
+.dropdown-content {
             display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -110,21 +45,10 @@ function getThemeClass($mode)
 
 .show {
   display: block;
-}
-
-      
-        
-        
-        
+}       
         .search-input::placeholder {
             color: #000;
-        }
-        
-        .search-input.dark-mode::placeholder {
-            color: #000;
-        }
-        
-        .form-switch {
+        }.form-switch {
             display: inline-flex;
             align-items: center;
         }
@@ -252,52 +176,77 @@ input[type="password"] {
 } 
 
     </style>
-</head>
-<body>
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+        </head>
+        <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       
-        <a class="navbar-brand" href="home.php">Career Chariot</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+      <a class="navbar-brand" href="home.php">Career Chariot</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" data-toggle="modal" data-target="#loginModal">Educational qualifications<span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="hell.php">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="modal" data-target="#loginModal">Discussion forum</a>
-                </li>
-            </ul>
-            <div class="navbar-center">
-                <div class="form-switch ml-2">
-                    <input type="checkbox" class="form-check-input" id="darkModeSwitch">
-                    <label class="form-check-label" for="darkModeSwitch"></label>
-                </div>
-                
-            </div>
-            <!-- Display the user icon -->
-            <button type="button" class="btn btn-outline-light login-signup-btn" data-toggle="modal"  data-target="#loginModal">Login / Sign Up</button>
-        </div>
-    </nav>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+              <a class="nav-link" <?php echo isset($_SESSION['username']) ? 'href="choices.php"' :'data-toggle="modal" data-target="#loginModal"' ; ?>>
+    Educational qualifications<span class="sr-only">(current)</span>
+</a>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="hell.php">About</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" <?php echo isset($_SESSION['username']) ? 'href="forum.php"' :'data-toggle="modal" data-target="#loginModal"' ; ?>>Discussion forum</a>
+              </li>
+          </ul>
+                <?php
+                if (isset($_SESSION['username'])) {
+                echo '<div class="user-icon">
+                    <span onclick="toggleDropdown()"> '.strtoupper(substr($_SESSION['username'], 0, 1)).' </span>
+                    <div class="dropdown-content" id="dropdown">
+    <a href="profile.php">Settings</a>
+    <a href="home.php" onclick="logout()">Logout</a>
+</div>
+
+                </div>';}
+                else{
+                    echo '<button type="button" class="btn btn-outline-light login-signup-btn" data-toggle="modal" data-target="#loginModal">Login / Sign Up</button>';
+
+                }?>
+            </nav>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
     <script>
         // Dark mode toggle functionality
+       
         
+      
         function toggleDropdown() {
-            var dropdown = document.getElementById("dropdown");
-            dropdown.classList.toggle("show");
-        }
+  var dropdown = document.getElementById("dropdown");
+  dropdown.classList.toggle("show");
+}
 
-        
-    </script>
-</body>
-</html>
+function logout() {
+
+  $.ajax({
+                type: "POST",
+                url: "logout.php",
+                success: function (response) {
+                    // Reload the page after successful logout
+                    location.reload();
+                }
+            });
+
+  // Redirect to the desired page after logout
+  
+}
+
+</script> <!-- Include your JavaScript and other body elements here -->
+        </body>
+        </html>
+
+  

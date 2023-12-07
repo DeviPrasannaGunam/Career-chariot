@@ -1,5 +1,3 @@
-
-
 <?php include('log.php'); ?>
 
 
@@ -137,7 +135,7 @@ $(document).ready(function() {
             success: function(response) {
                 // Handle the response from the server
                 if (response === 'success') {
-                    window.location.href = 'dashboard.php';
+                    window.location.href = 'home.php';
                     exit();
                 } else {
                     // Login failed

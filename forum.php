@@ -1,5 +1,8 @@
-
 <?php
+
+
+// Check if the user is logged in (username is set in the session)
+
 // Database connection details
 $servername = "localhost:3308";
 $username = "root";
@@ -9,7 +12,7 @@ $dbname = "careerc";
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 
 // Retrieve existing posts from the database
-$stmt = $conn->query("SELECT * FROM posts ORDER BY id DESC");
+$stmt = $conn->query("SELECT posts.*, users.username AS author_name FROM posts JOIN users ON posts.user_id = users.user_id ORDER BY posts.id DESC");
 $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -92,50 +95,50 @@ button {
 
 </head>
 <body>
-
-<?php include('log1.php'); ?>
-<div class=container>
-<div class=content>
-<div class=body1>
-  <h1>Discussion Forum</h1>
-  <h2>Add a New Post</h2>
-  <form action="submit_post.php" method="POST">
-    
-    <textarea name="content" placeholder="Post Content" required></textarea>
-    <button type="submit">Submit Post</button>
-  </form>
-
-  <div id="forum-container">
-    <?php foreach ($posts as $post): ?>
-      <div class="post">
-        <h3 style="color:black;"><?php echo $post['author']; ?></h3>
-        <p style="color:black;"><?php echo $post['content']; ?></p>
-
-        <!-- Display replies for each post -->
-        <?php
-        $postId = $post['id'];
-        $stmt = $conn->query("SELECT * FROM replies WHERE post_id = $postId ORDER BY id DESC");
-        $replies = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        ?>
-        <?php foreach ($replies as $reply): ?>
-          <div class="reply">
-            <h4 style="color:black;"><?php echo $reply['author']; ?></h4>
-            <p style="color:black;"><?php echo $reply['content']; ?></p>
-          </div>
-        <?php endforeach; ?>
-
-        <!-- Form to submit a reply for the current post -->
-        <form action="submit_reply.php" method="POST">
-          <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
-          
-          <textarea name="content" placeholder="Reply Content" required></textarea>
-          <button type="submit">Submit Reply</button>
+<?php
+include('homeq.php');?>
+<div class="container">
+    <div class="content">
+      <div class="body1">
+        <h1>Discussion Forum</h1>
+        <h2>Add a New Post</h2>
+        <form action="submit_post.php" method="POST">
+          <textarea name="content" placeholder="Post Content" required></textarea>
+          <button type="submit">Submit Post</button>
         </form>
-      </div>
-    <?php endforeach; ?>
-  </div>
+
+        <div id="forum-container">
+          <?php foreach ($posts as $post): ?>
+            <div class="post">
+              <h3 style="color: black;"><?php echo $post['author_name']; ?></h3>
+              <p style="color: black;"><?php echo $post['content']; ?></p>
+
+              <!-- Display replies for each post -->
+              <?php
+              $postId = $post['id'];
+              $stmt = $conn->query("SELECT replies.*, users.username AS author_name FROM replies JOIN users ON replies.user_id = users.user_id WHERE post_id = $postId ORDER BY replies.id DESC");
+              $replies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+              ?>
+              <?php foreach ($replies as $reply): ?>
+                <div class="reply">
+                  <h4 style="color: black;"><?php echo $reply['author_name']; ?></h4>
+                  <p style="color: black;"><?php echo $reply['content']; ?></p>
+                </div>
+              <?php endforeach; ?>
+
+              <!-- Form to submit a reply for the current post -->
+              <form action="submit_reply.php" method="POST">
+                <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+                <textarea name="content" placeholder="Reply Content" required></textarea>
+                <button type="submit">Submit Reply</button>
+              </form>
+            </div>
+          <?php endforeach; ?>
         </div>
-        </div></div>
+      </div>
+    </div>
+  </div>
+
   <?php include('footer.php'); ?>
  
   

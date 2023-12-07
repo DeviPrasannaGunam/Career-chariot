@@ -1,3 +1,5 @@
+<?php include('homeq.php'); 
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,7 +62,7 @@ h1{
   </style>
 </head>
 <body>
-  <?php include('homeq.php'); ?>
+  
   <div class="container1">
     
   <img src="cc.jpg" alt="Your Picture" style="background-size:contain" quality=100>
